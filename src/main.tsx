@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, defer } from 'react-router-dom';
 // import { Menu } from './pages/Menu/Menu';
 import { Cart } from './pages/Cart/Cart';
 import { Error as ErrorPage } from './pages/Error/Error';
@@ -34,14 +34,30 @@ const router = createBrowserRouter([
         element: <Product />,
         errorElement: <>!Ошибка!</>,
         loader: async ({ params }) => {
-          await new Promise<void>((resolve) => {
-            throw new Error('errrorrr');
-            setTimeout(() => {
-              resolve();
-            }, 2000);
+          return defer({
+            data: new Promise((resolve, reject) => {
+              setTimeout(() => {
+                axios
+                  .get(`${PREFIX}/products/${params.id}`)
+                  .then((data) => resolve(data))
+                  .catch((e) => reject(e));
+              }, 2000);
+            }),
           });
-          const { data } = await axios.get(`${PREFIX}/products/${params.id}`);
-          return data;
+
+          //   data: await axios
+          //     .get(`${PREFIX}/products/${params.id}`)
+          //     .then((data) => data),
+          // });
+
+          // await new Promise<void>((resolve) => {
+          //   throw new Error('errrorrr');
+          //   setTimeout(() => {
+          //     resolve();
+          //   }, 2000);
+          // });
+          // const { data } = await axios.get(`${PREFIX}/products/${params.id}`);
+          // return data;
         },
       },
     ],
