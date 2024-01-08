@@ -13,4 +13,7 @@
 .content {
   border-left: 1px solid var(--separator-color);
   flex: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
