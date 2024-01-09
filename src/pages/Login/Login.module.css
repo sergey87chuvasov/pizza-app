@@ -39,3 +39,9 @@
   text-decoration: none;
   color: var(--primary-color);
 }
+
+.error {
+  background: #e0da91;
+  color: white;
+  padding: 20px;
+}
