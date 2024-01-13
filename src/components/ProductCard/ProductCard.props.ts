@@ -4,5 +4,5 @@ export interface ProductCardProps {
   description: string;
   image: string;
   price: number;
-  raiting: number;
+  rating: number;
 }

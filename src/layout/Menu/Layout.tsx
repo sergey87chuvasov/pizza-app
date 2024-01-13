@@ -9,17 +9,17 @@ import { useEffect } from 'react';
 
 export function Layout() {
   const navigate = useNavigate();
-  const dispath = useDispatch<AppDispath>();
+  const dispatch = useDispatch<AppDispath>();
   const profile = useSelector((s: RootState) => s.user.profile);
   const items = useSelector((s: RootState) => s.cart.items);
 
   useEffect(() => {
-    dispath(getProfile());
-  }, [dispath]);
+    dispatch(getProfile());
+  }, [dispatch]);
 
   const logout = () => {
-    dispath(userActions.logout());
-    navigate('auth/login');
+    dispatch(userActions.logout());
+    navigate('/auth/login');
   };
 
   return (
@@ -55,7 +55,7 @@ export function Layout() {
             }
           >
             <img src='/cart-icon.svg' alt='Иконка корзины' />
-            Корзина{' '}
+            Корзина
             <span className={styles['cart-count']}>
               {items.reduce((acc, item) => (acc += item.count), 0)}
             </span>

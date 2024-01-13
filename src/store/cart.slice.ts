@@ -10,7 +10,7 @@ export interface CartState {
 }
 
 const initialState: CartState = {
-  items: [];
+  items: [],
 };
 
 export const cartSlice = createSlice({
@@ -18,19 +18,18 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action: PayloadAction<number>) => {
-      const existed = state.items.find(i => i.id === action.payload);
-
-      if(!existed) {
-        state.items.push({ id: action.payload, count: 1})
+      const existed = state.items.find((i) => i.id === action.payload);
+      if (!existed) {
+        state.items.push({ id: action.payload, count: 1 });
         return;
       }
-      state.items.map(i => {
-        if(i.id === action.payload) {
+      state.items.map((i) => {
+        if (i.id === action.payload) {
           i.count += 1;
         }
         return i;
-      })
-    }
+      });
+    },
   },
 });
 
